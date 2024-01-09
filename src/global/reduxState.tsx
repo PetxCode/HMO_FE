@@ -5,6 +5,7 @@ const initialState = {
   toggle: false,
   toggleMenu: false,
   memberToggle: false,
+  toggleText: false,
 };
 
 const reduxState = createSlice({
@@ -32,6 +33,9 @@ const reduxState = createSlice({
     changeMemberState: (state) => {
       state.memberToggle = !state.memberToggle;
     },
+    changeToggleText: (state, { payload }) => {
+      state.toggleText = payload;
+    },
   },
 });
 
@@ -43,6 +47,7 @@ export const {
   changeToggleMenuToFalse,
   changeToggleMenu,
   changeMemberState,
+  changeToggleText,
 } = reduxState.actions;
 
 export default reduxState.reducer;

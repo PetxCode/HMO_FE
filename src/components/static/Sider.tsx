@@ -8,11 +8,13 @@ import {
 import { NavLink } from "react-router-dom";
 import Button from "../reUse/Button";
 import { FaBarsProgress, FaTeamspeak } from "react-icons/fa6";
-import { useDispatch } from "react-redux";
-import { changeMemberState } from "../../global/reduxState";
+import { useDispatch, useSelector } from "react-redux";
+import { changeMemberState, changeToggleText } from "../../global/reduxState";
+import { useEffect } from "react";
 
 const Sider = () => {
   const dispatch = useDispatch();
+  const toggleText = useSelector((state: any) => state.toggleText);
 
   const onHandleClick = () => {
     if (!document.startViewTransition) {
@@ -24,6 +26,19 @@ const Sider = () => {
     }
   };
 
+  useEffect(() => {
+    let timer = setTimeout(() => {
+      if (!document.startViewTransition) {
+        dispatch(changeToggleText(false));
+      } else {
+        document.startViewTransition(() => {
+          dispatch(changeToggleText(false));
+        });
+      }
+      clearTimeout(timer);
+    }, 5000);
+  }, [toggleText]);
+
   return (
     <div className="w-full border-r bg-white text-blue-900 flex flex-col ">
       <div className="w-full flex justify-center">
@@ -33,7 +48,7 @@ const Sider = () => {
       </div>
 
       <div className="mt-16 px-2 text-center flex flex-col border mx-2 rounded-md py-4">
-        <div className="mb-4 text-[20px] font-medium">
+        <div className="mb-4 text-[18px] font-medium">
           You are currently on a Family plan
         </div>
         <div className="flex w-full justify-center">
@@ -46,6 +61,15 @@ const Sider = () => {
             }}
           />
           {/* </NavLink> */}
+        </div>
+      </div>
+      <div className="w-full flex justify-center">
+        <div className="transition-all duration-300 text-center text-[12px] font-medium mt-3 w-[90%] ">
+          {toggleText ? (
+            <div>A new member has been added to your family list</div>
+          ) : (
+            <div></div>
+          )}
         </div>
       </div>
 

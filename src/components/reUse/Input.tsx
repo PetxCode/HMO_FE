@@ -39,11 +39,12 @@ const Input: FC<iInputProps> = ({
       style={{
         border: `${value ? "1px solid rgb(59, 130, 246)" : ""}`,
       }}
+      onClick={() => {
+        setState(true);
+      }}
     >
       <label
         className={`text-[lightgray] transition-all duration-300 absolute  bg-white text-[12px] ml-2 px-[2px]
-      
-
         `}
         style={{
           top: `${
