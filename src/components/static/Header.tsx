@@ -1,5 +1,5 @@
 import { FaArrowDown, FaBarsProgress } from "react-icons/fa6";
-import pic from "../../assets/WIN_20231217_12_38_35_Pro.jpg";
+import pic from "../../assets/pix.jpg";
 import { useDispatch, useSelector } from "react-redux";
 import { changeToggle, changeToggleMenu } from "../../global/reduxState";
 import SmallPiece from "./SmallPiece";

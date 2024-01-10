@@ -19,7 +19,7 @@ const Layout = () => {
         <div className="flex flex-col w-[100%] transition-all duration-300 md:w-[calc(100%-250px)] justify-end">
           <Header />
           <div
-            className={`min-h-[calc(100vh-72px)] p-2 m-2 border rounded-md mt-16`}
+            className={`min-h-[calc(100vh-72px)] p-2 m-2 border rounded-md mt-16 relative`}
             onClick={() => {
               dispatch(changeToggleToFalse());
             }}
@@ -27,7 +27,7 @@ const Layout = () => {
             <Outlet />
 
             {memberState && (
-              <div className="relative w-[100%] h-[99.2%] ">
+              <div className="absolute top-7  w-[100%] h-[99.2%] ">
                 <div
                   className="-top-6 w-full h-full left-0 absolute rounded-md "
                   style={{

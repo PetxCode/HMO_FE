@@ -54,8 +54,33 @@ export const userCookieAPI = async () => {
     return await axios
       .get(`${URL}/reading-user-cookie`, { withCredentials: true })
       .then((res) => {
-        console.log(res);
+        console.log("userID: ", res?.data);
+        return res?.data;
+      });
+  } catch (error) {
+    return error;
+  }
+};
 
+export const getUserAPI = async (userID: string) => {
+  try {
+    return await axios
+      .get(`${URL}/read-user/${userID}`, { withCredentials: true })
+      .then((res) => {
+        return res.data;
+      });
+  } catch (error) {
+    return error;
+  }
+};
+
+export const hospitalChoiceAPI = async (data: any, userID: string) => {
+  try {
+    return await axios
+      .patch(`${URL}/choose-hospital/${userID}`, data, {
+        withCredentials: true,
+      })
+      .then((res) => {
         return res.data;
       });
   } catch (error) {

@@ -1,11 +1,5 @@
-import { useEffect, useState } from "react";
-import Button from "../../components/reUse/Button";
-import { useDispatch } from "react-redux";
-import { loginState, logoutState } from "../../global/reduxState";
-
 const HomeScreen = () => {
-  const dispatch = useDispatch();
-  const [state, setState] = useState();
+  document.title = "Family Record and Stats";
 
   return (
     <div>

@@ -3,8 +3,12 @@ import Button from "../../components/reUse/Button";
 import Input from "../../components/reUse/Input";
 import { useDispatch } from "react-redux";
 import { changeMemberState, changeToggleText } from "../../global/reduxState";
+import { addMember } from "../../api/memberAPI";
+import { useUserID } from "../../hooks/useUserID";
 
 const AddMember = () => {
+  document.title = "Add Family Member";
+  const { user } = useUserID();
   const dispatch = useDispatch();
   const [memberName, setMemberName] = useState<string>("");
   const [relate, setRelate] = useState<string>("");
@@ -28,8 +32,6 @@ const AddMember = () => {
         relate.toLowerCase() === "husband" ||
         relate.toLowerCase() === "child"
       ) {
-        console.log(relate, memberName);
-
         if (!document.startViewTransition) {
           dispatch(changeToggleText(true));
         } else {
@@ -39,6 +41,8 @@ const AddMember = () => {
         }
 
         onHandleClick();
+
+        addMember({ firstName: memberName, relationship: relate }, user);
       }
     }
   };
@@ -71,7 +75,7 @@ const AddMember = () => {
         <div>
           <Button
             name="Add Member"
-            className="w-[97%] mt-12 bg-blue-500 text-white h-14 hover:bg-blue-600 transition-all duration-300"
+            className="w-[97%] mt-12 bg-blue-950 text-white h-14 hover:bg-blue-900 transition-all duration-300"
             type="submit"
             onClick={onHandleSubmission}
           />

@@ -86,7 +86,7 @@ const Sider = () => {
           <MdQueryStats />
         </NavLink>
         <NavLink
-          to="/stat"
+          to="/view-family"
           className={({ isActive }) =>
             isActive
               ? "duration-500 transition-all p-2 rounded-sm bg-blue-100 text-black cursor-pointer font-medium my-2 flex items-center justify-between "
@@ -122,7 +122,7 @@ const Sider = () => {
         <div className="flex-1" />
 
         <NavLink
-          to="/stat"
+          to="/settings"
           className={({ isActive }) =>
             isActive
               ? "duration-500 transition-all p-2 rounded-sm bg-purple-100 text-black cursor-pointer font-medium my-2 flex items-center justify-between "
