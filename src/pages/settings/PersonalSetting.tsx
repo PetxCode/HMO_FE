@@ -31,7 +31,7 @@ const PersonalSetting: FC = () => {
       <div className="flex items-center text-blue-950">
         Account <LiaGreaterThanSolid size={13} className="mx-4 " />{" "}
         <div className="capitalize">
-          {name.split("/")[2].replaceAll("-", " ")}
+          {name.split("/")[1].replaceAll("-", " ")}
         </div>
       </div>
       <div className="text-blue-800 mt-5 font-[500] text-[30px] mb-10 capitalize">

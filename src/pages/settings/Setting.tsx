@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { RiPagesLine } from "react-icons/ri";
 import { HiMiniBuildingOffice2 } from "react-icons/hi2";
 import { useUser, useUserID } from "../../hooks/useUserID";
+import LittleHeader from "../../components/layout/LittleHeader";
 
 const SettingScreen: FC = () => {
   document.title = "Profile settings";
@@ -18,27 +19,31 @@ const SettingScreen: FC = () => {
       size: 35,
     },
     {
-      icon: <HiMiniBuildingOffice2 size={35} />,
+      icon: <RiPagesLine size={35} />,
+
       title: "Professional Info",
       detail: " Provide personal details and how we can reach you.",
       url: "/my-personal-info/my-main-info",
       size: 35,
     },
     {
-      icon: <RiPagesLine size={35} />,
+      icon: <HiMiniBuildingOffice2 size={35} />,
       title: "Hospital Info",
       detail: " Provide studio details and how we can reach you.",
-      url: "/#",
+      url: "/my-personal-info/choose-hospital",
       size: 35,
     },
   ];
 
   return (
     <div className=" min-h-[82vh] text-blue-950">
+      <LittleHeader name={document.title} />
       <div className="w-full m-auto py-8 my-4 flex gap-24 max-lg:block max-md:pt-1">
         {/* profile Account Detail */}
         <div>
-          <div className="font-bold text-[30px]  ">Profile Settings </div>
+          <div className="font-bold text-[30px] text-blue-950 ">
+            Main Settings Page
+          </div>
           <div className="text-[13px]">
             <strong className="font-[600]">
               {data?.firstName} {data?.lastName}

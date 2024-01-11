@@ -3,15 +3,12 @@ import { viewMember, viewMemberDetail } from "../api/memberAPI";
 import useSWR from "swr";
 
 export const useUser = (readID: string) => {
-  //   const { user: readID } = useUserID();
-  //   const user = {};
   const { data: user } = useSWR(`/read-user/${readID}`, () => {
     return getUserAPI(readID).then((res) => {
       return res.data;
     });
   });
 
-  console.log(user);
   return { user };
 };
 

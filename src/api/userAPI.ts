@@ -54,7 +54,6 @@ export const userCookieAPI = async () => {
     return await axios
       .get(`${URL}/reading-user-cookie`, { withCredentials: true })
       .then((res) => {
-        console.log("userID: ", res?.data);
         return res?.data;
       });
   } catch (error) {

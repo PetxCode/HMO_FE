@@ -14,20 +14,69 @@ const ProfressionInfoScreen = () => {
   const [toggle3, setToggle3] = useState<boolean>(false);
 
   const onToggle = () => {
-    setToggle(!toggle);
+    if (!document.startViewTransition) {
+      setToggle(!toggle);
+      setToggle1(false);
+      setToggle2(false);
+      setToggle3(false);
+    } else {
+      document.startViewTransition(() => {
+        setToggle(!toggle);
+        setToggle1(false);
+        setToggle2(false);
+        setToggle3(false);
+      });
+    }
   };
 
   const onToggle1 = () => {
-    setToggle1(!toggle1);
+    if (!document.startViewTransition) {
+      setToggle1(!toggle1);
+      setToggle(false);
+      setToggle2(false);
+      setToggle3(false);
+    } else {
+      document.startViewTransition(() => {
+        setToggle1(!toggle1);
+        setToggle(false);
+        setToggle2(false);
+        setToggle3(false);
+      });
+    }
   };
 
   const onToggle2 = () => {
-    setToggle2(!toggle2);
+    if (!document.startViewTransition) {
+      setToggle2(!toggle2);
+      setToggle(false);
+      setToggle1(false);
+      setToggle3(false);
+    } else {
+      document.startViewTransition(() => {
+        setToggle2(!toggle2);
+        setToggle(false);
+        setToggle1(false);
+        setToggle3(false);
+      });
+    }
   };
 
   const onToggle3 = () => {
-    setToggle3(!toggle3);
+    if (!document.startViewTransition) {
+      setToggle3(!toggle3);
+      setToggle2(false);
+      setToggle1(false);
+      setToggle(false);
+    } else {
+      document.startViewTransition(() => {
+        setToggle3(!toggle3);
+        setToggle2(false);
+        setToggle1(false);
+        setToggle(false);
+      });
+    }
   };
+
   return (
     <div className=" grid col-span-3 pr-0 h-[100px] ">
       {/* forms */}
@@ -35,9 +84,9 @@ const ProfressionInfoScreen = () => {
         <div className="flex w-full justify-between h-[100px] relative ">
           {" "}
           <div>
-            <div>Prefession</div>
+            <div>Phone Number</div>
             <div className="font-[400]">
-              {data?.profession ? data.profession : "no profession added yet"}
+              {data?.profession ? data.profession : "no Phone Number added yet"}
             </div>
           </div>
           <div
@@ -49,7 +98,7 @@ const ProfressionInfoScreen = () => {
         </div>
         {toggle2 && (
           <div
-            className="absolute left:0 sm:left-16 top-[19.5rem] h-[200px] w-[90%] sm:w-[45%]  bg-fuchsia-500 py-4 z-10 "
+            className="absolute left:0 sm:left-0 top-[11.2rem] h-[220px] w-[100%] sm:w-[50%]  bg-fuchsia-500 py-4 z-10 "
             style={{
               background: "rgba(255, 255, 255, 0.25)",
               backdropFilter: " blur( 4px )",
@@ -80,9 +129,9 @@ const ProfressionInfoScreen = () => {
         <div className="flex w-full justify-between h-[100px] relative ">
           {" "}
           <div>
-            <div>Office Address</div>
+            <div>Home Address</div>
             <div className="font-[400]">
-              {data?.address ? data.address : "no contact address yet"}
+              {data?.address ? data.address : "no home address yet"}
             </div>
           </div>
           <div
@@ -94,7 +143,7 @@ const ProfressionInfoScreen = () => {
         </div>
         {toggle && (
           <div
-            className="absolute left:0 sm:left-16 top-[25.0rem] h-[200px] w-[90%] sm:w-[45%]  bg-fuchsia-500 py-4 z-10 "
+            className="absolute left:0 sm:left-0 top-[17.4rem] h-[220px] w-[100%] sm:w-[50%]  bg-fuchsia-500 py-4 z-10 "
             style={{
               background: "rgba(255, 255, 255, 0.25)",
               backdropFilter: " blur( 4px )",
@@ -138,7 +187,7 @@ const ProfressionInfoScreen = () => {
         </div>
         {toggle1 && (
           <div
-            className="absolute left:0 sm:left-16 top-[31.5rem] h-[200px] w-[90%] sm:w-[45%]  bg-fuchsia-500 py-4 z-10 "
+            className="absolute left:0 sm:left-0 top-[23.9rem] h-[200px] w-[100%] sm:w-[50%]  bg-fuchsia-500 py-4 z-10 "
             style={{
               background: "rgba(255, 255, 255, 0.25)",
               backdropFilter: " blur( 4px )",
@@ -182,7 +231,7 @@ const ProfressionInfoScreen = () => {
         </div>
         {toggle3 && (
           <div
-            className="absolute left:0 sm:left-16 top-[37.5rem] h-[200px] w-[90%] sm:w-[45%]  bg-fuchsia-500 py-4 z-10 "
+            className="absolute left:0 sm:left-0 top-[30.5rem] h-[200px] w-[90%] sm:w-[50%]  bg-fuchsia-500 py-4 z-10 "
             style={{
               background: "rgba(255, 255, 255, 0.25)",
               backdropFilter: " blur( 4px )",

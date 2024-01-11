@@ -97,22 +97,22 @@ const Sider = () => {
           <MdPeople />
         </NavLink>
         <NavLink
-          to="/stat"
+          to="/appointments"
           className={({ isActive }) =>
             isActive
-              ? "duration-500 transition-all p-2 rounded-sm bg-purple-100 text-black cursor-pointer font-medium my-2 flex items-center justify-between "
-              : "duration-500 transition-all p-2 rounded-sm hover:bg-purple-100 hover:text-black cursor-pointer font-medium my-2 flex items-center justify-between "
+              ? "duration-500 transition-all p-2 rounded-sm bg-blue-100 text-black cursor-pointer font-medium my-2 flex items-center justify-between "
+              : "duration-500 transition-all p-2 rounded-sm hover:bg-blue-100 hover:text-black cursor-pointer font-medium my-2 flex items-center justify-between "
           }
         >
           Book Appointment
           <FaBarsProgress />
         </NavLink>
         <NavLink
-          to="/stat"
+          to="/history"
           className={({ isActive }) =>
             isActive
-              ? "duration-500 transition-all p-2 rounded-sm bg-purple-100 text-black cursor-pointer font-medium my-2 flex items-center justify-between "
-              : "duration-500 transition-all p-2 rounded-sm hover:bg-purple-100 hover:text-black cursor-pointer font-medium my-2 flex items-center justify-between "
+              ? "duration-500 transition-all p-2 rounded-sm bg-blue-100 text-black cursor-pointer font-medium my-2 flex items-center justify-between "
+              : "duration-500 transition-all p-2 rounded-sm hover:bg-blue-100 hover:text-black cursor-pointer font-medium my-2 flex items-center justify-between "
           }
         >
           View Medical History
@@ -125,8 +125,8 @@ const Sider = () => {
           to="/settings"
           className={({ isActive }) =>
             isActive
-              ? "duration-500 transition-all p-2 rounded-sm bg-purple-100 text-black cursor-pointer font-medium my-2 flex items-center justify-between "
-              : "duration-500 transition-all p-2 rounded-sm  flex items-center justify-between hover:bg-purple-100 hover:text-black cursor-pointer font-medium my-2"
+              ? "duration-500 transition-all p-2 rounded-sm bg-blue-100 text-black cursor-pointer font-medium my-2 flex items-center justify-between "
+              : "duration-500 transition-all p-2 rounded-sm  flex items-center justify-between hover:bg-blue-100 hover:text-black cursor-pointer font-medium my-2"
           }
         >
           Settings

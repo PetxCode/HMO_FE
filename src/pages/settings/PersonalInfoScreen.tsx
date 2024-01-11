@@ -82,7 +82,7 @@ const PersonalInfoScreen = () => {
                   name="Save"
                   icon={<MdSave />}
                   onClick={onToggle}
-                  className="bg-blue-950 text-white uppercase font-medium ,"
+                  className="bg-blue-950 text-white uppercase font-medium text-[12px],"
                 />
               </div>
             </div>
@@ -170,12 +170,7 @@ const PersonalInfoScreen = () => {
                 />
               </div>
               <div className="w-[200px] mt-3 ">
-                <Button
-                  name="Save"
-                  icon={<MdSave />}
-                  onClick={onToggle2}
-                  className="bg-blue-950 text-white uppercase font-medium ,"
-                />
+                <Button name="save" onClick={onToggle2} />
               </div>
             </div>
           </div>
