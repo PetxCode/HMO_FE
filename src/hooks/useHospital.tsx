@@ -1,9 +1,19 @@
 import useSWR from "swr";
-import { readAllHopitalAPI } from "../api/hospitalAPI";
+import { readAllHopitalAPI, readHopitalAPI } from "../api/hospitalAPI";
 
-export const useAllHospital = (readID: string) => {
-  const { data } = useSWR(`/read-user/${readID}`, () => {
+export const useAllHospital = () => {
+  const { data } = useSWR(`/view-all-hospital/`, () => {
     return readAllHopitalAPI().then((res) => {
+      return res.data;
+    });
+  });
+
+  return { data };
+};
+
+export const useHospital = (hospitalID: string) => {
+  const { data } = useSWR(`/view-all-hospital/${hospitalID}`, () => {
+    return readHopitalAPI(hospitalID).then((res) => {
       return res.data;
     });
   });
