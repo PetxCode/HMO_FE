@@ -1,6 +1,16 @@
 import axios from "axios";
 
-const URL: string = "http://localhost:2233/api";
+const URL: string = "https://hmo-be-btuo.onrender.com/api";
+
+export const homeGETAPI = async () => {
+  try {
+    return await axios.get(`https://hmo-be-btuo.onrender.com/`).then((res) => {
+      return res;
+    });
+  } catch (error) {
+    return error;
+  }
+};
 
 export const registerAPI = async (email: any) => {
   try {
