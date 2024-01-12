@@ -1,7 +1,7 @@
-import { MdOfflineShare, MdSave } from "react-icons/md";
+import { MdSave } from "react-icons/md";
 import { FaBuildingUser, FaCheckDouble } from "react-icons/fa6";
 import Button from "../../components/reUse/Button";
-import { useUser, useUserID } from "../../hooks/useUserID";
+import { useUserID } from "../../hooks/useUserID";
 import { useState } from "react";
 import { useAllHospital } from "../../hooks/useHospital";
 import HospitalDetails from "./HospitalDetails";
@@ -91,7 +91,6 @@ const HospitalChice = () => {
             className="bg-blue-950 text-white uppercase font-medium text-[12px],
             "
             onClick={() => {
-              const val = { state, state1, state2 };
               createUserHospitalsAPI(userID, {
                 choice1: state,
                 choice2: state1,

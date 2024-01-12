@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { useOtherUser, useUser } from "../../hooks/useUserID";
+import { useUser } from "../../hooks/useUserID";
 
 export interface iProps {
   props: any;

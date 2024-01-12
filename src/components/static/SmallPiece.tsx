@@ -1,4 +1,3 @@
-import { FaOutdent } from "react-icons/fa6";
 import { logoutAPI } from "../../api/userAPI";
 import {
   changeToggle,
@@ -6,7 +5,7 @@ import {
   logoutState,
 } from "../../global/reduxState";
 import { useDispatch } from "react-redux";
-import { MdAccountCircle, MdLogout } from "react-icons/md";
+import { MdLogout } from "react-icons/md";
 import { FC, ReactNode } from "react";
 import { NavLink } from "react-router-dom";
 import Button from "../reUse/Button";

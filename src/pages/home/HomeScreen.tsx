@@ -1,7 +1,6 @@
 import { MdPeople, MdPlaylistAddCheck } from "react-icons/md";
 import { useUser, useUserID } from "../../hooks/useUserID";
 import Personal from "./Personal";
-import Button from "../../components/reUse/Button";
 import LittleHeader from "../../components/layout/LittleHeader";
 import { FaBuildingUser, FaCheckDouble } from "react-icons/fa6";
 import HospitalDetails from "../settings/HospitalDetails";
@@ -61,7 +60,7 @@ const HomeScreen = () => {
             <div className="grid grid-cols-12  ">
               {viewMembership?.map((props: any, i: number) => (
                 <div
-                  key={i}
+                  key={props + i}
                   className="flex flex-col items-center group transition-all duration-300  cursor-pointer"
                 >
                   <img

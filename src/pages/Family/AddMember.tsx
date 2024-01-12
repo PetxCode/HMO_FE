@@ -23,7 +23,7 @@ const AddMember = () => {
     }
   };
 
-  const onHandleSubmission = (e: any) => {
+  const onHandleSubmission = () => {
     // e.perventDefault();
 
     if (memberName !== "") {

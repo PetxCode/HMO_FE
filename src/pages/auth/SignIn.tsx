@@ -4,7 +4,7 @@ import Input from "../../components/reUse/Input";
 import { FaGoogle } from "react-icons/fa6";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { loginAPI, verifyAPI } from "../../api/userAPI";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { loginState } from "../../global/reduxState";
 
 const SignIn = () => {

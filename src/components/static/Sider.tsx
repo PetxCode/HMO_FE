@@ -1,13 +1,7 @@
-import {
-  MdLogout,
-  MdPeople,
-  MdQueryStats,
-  MdReport,
-  MdSettings,
-} from "react-icons/md";
+import { MdPeople, MdQueryStats, MdReport, MdSettings } from "react-icons/md";
 import { NavLink } from "react-router-dom";
 import Button from "../reUse/Button";
-import { FaBarsProgress, FaTeamspeak } from "react-icons/fa6";
+import { FaBarsProgress } from "react-icons/fa6";
 import { useDispatch, useSelector } from "react-redux";
 import { changeMemberState, changeToggleText } from "../../global/reduxState";
 import { useEffect } from "react";

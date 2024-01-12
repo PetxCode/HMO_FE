@@ -1,5 +1,3 @@
-import React from "react";
-
 const RegisterCard = () => {
   return (
     <div className="w-full h-[94vh] flex items-center justify-center flex-col">

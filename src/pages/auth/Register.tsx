@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Button from "../../components/reUse/Button";
 import Input from "../../components/reUse/Input";
-import { MdFacebook } from "react-icons/md";
 import { FaGoogle } from "react-icons/fa6";
 import { Link, useNavigate } from "react-router-dom";
 import { registerAPI } from "../../api/userAPI";
@@ -9,8 +8,6 @@ import { registerAPI } from "../../api/userAPI";
 const Register = () => {
   const navigate = useNavigate();
   const [state, setState] = useState<string>("");
-
-  const [error, setError] = useState<boolean>(false);
 
   const handleSubmit = (e: any) => {
     e.preventDefault();

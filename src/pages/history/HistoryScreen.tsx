@@ -23,7 +23,7 @@ const HistoryScreen = () => {
         <div className=" w-full">
           {data?.map((props: any, i: number) => (
             <div
-              key={i}
+              key={props}
               className={`w-[950px] flex items-center gap-2 text-[12px] font-medium  h-14 px-4 ${
                 i % 2 === 0 ? "bg-slate-50" : "bg-white"
               }`}

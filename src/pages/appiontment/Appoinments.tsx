@@ -4,14 +4,10 @@ import moment from "moment";
 import { useUser, useUserID } from "../../hooks/useUserID";
 import HospitalNames from "../settings/HospitalNames";
 import HospitalDetails from "../settings/HospitalDetails";
-import DateTimePicker from "react-datetime-picker";
 import "react-datetime-picker/dist/DateTimePicker.css";
 import "react-datepicker/dist/react-datepicker.css";
 import DatePicker from "react-datepicker";
 
-type ValuePiece = Date | null;
-
-type Value = ValuePiece | [ValuePiece, ValuePiece];
 const Appoinments = () => {
   document.title = "Appoinments Screen";
 
