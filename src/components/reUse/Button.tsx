@@ -15,7 +15,7 @@ const Button: FC<iButtonProps> = ({ icon, name, className, ...props }) => {
         className
       )}
     >
-      <div className="mr-2 text-[30px] text-white">{icon}</div>
+      <div className="mr-2 text-[30px] text-white ">{icon}</div>
       <div className="text-white">{name}</div>
     </button>
   );

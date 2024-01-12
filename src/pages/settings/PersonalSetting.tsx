@@ -2,7 +2,7 @@ import { FC } from "react";
 import { LiaGreaterThanSolid } from "react-icons/lia";
 import { FaUnlockKeyhole } from "react-icons/fa6";
 import { MdHealthAndSafety } from "react-icons/md";
-import { Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 
 const PersonalSetting: FC = () => {
   document.title = "Personal Settings";
@@ -30,6 +30,10 @@ const PersonalSetting: FC = () => {
     <div>
       <div className="flex items-center text-blue-950">
         Account <LiaGreaterThanSolid size={13} className="mx-4 " />{" "}
+        <Link to="/settings" className="underline">
+          Settings
+        </Link>{" "}
+        <LiaGreaterThanSolid size={13} className="mx-4 " />{" "}
         <div className="capitalize">
           {name.split("/")[1].replaceAll("-", " ")}
         </div>

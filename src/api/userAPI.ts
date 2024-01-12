@@ -73,6 +73,31 @@ export const getUserAPI = async (userID: string) => {
   }
 };
 
+export const getUserNameAPI = async (userID: string, data: any) => {
+  try {
+    return await axios
+      .patch(`${URL}/update-user-name/${userID}`, data)
+      .then((res) => {
+        return res.data;
+      });
+  } catch (error) {
+    return error;
+  }
+};
+
+export const getUserPhoneAPI = async (userID: string, data: any) => {
+  try {
+    console.log("got it: ", data);
+    return await axios
+      .patch(`${URL}/update-user-phone/${userID}`, { phoneNumber: data })
+      .then((res) => {
+        return res.data;
+      });
+  } catch (error) {
+    return error;
+  }
+};
+
 export const hospitalChoiceAPI = async (data: any, userID: string) => {
   try {
     return await axios

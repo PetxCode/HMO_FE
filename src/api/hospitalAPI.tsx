@@ -19,3 +19,14 @@ export const readHopitalAPI = async (hospitalID: string) => {
     return error;
   }
 };
+export const createUserHospitalsAPI = async (userID: string, data: any) => {
+  try {
+    return await axios
+      .patch(`${URL}/choose-hospital/${userID}`, data)
+      .then((res) => {
+        return res.data;
+      });
+  } catch (error) {
+    return error;
+  }
+};

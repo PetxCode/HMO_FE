@@ -8,18 +8,20 @@ export interface iProps {
 const Personal: FC<iProps> = ({ props }) => {
   const { user: otherUser }: any = useUser(props);
 
-  let count: number = 0;
+  const myObject: any = {
+    key1: otherUser?.email,
+    key2: otherUser?.lastName,
+    key3: otherUser?.firstName,
+    key4: otherUser?.avatar,
+    key5: otherUser?.phoneNumber,
+  };
 
-  if (otherUser?.firstName) {
-    count++;
-  } else if (otherUser?.lastName) {
-    count++;
-  } else if (otherUser?.avatar) {
-    count++;
-  } else if (otherUser?.phoneNumber) {
-    count++;
-  } else if (otherUser?.email) {
-    count++;
+  let counter = 0;
+
+  for (const key in myObject) {
+    if (myObject[key]) {
+      counter++;
+    }
   }
 
   return (
@@ -27,14 +29,14 @@ const Personal: FC<iProps> = ({ props }) => {
       {/* data bar */}
       <p className="mb-8">
         <span className="font-bold text-[12px] ">
-          Profile: {((7.1 * count) / 100) * 280}% completed
+          Profile: {Math.ceil(((7.1 * counter) / 100) * 280)}% completed
         </span>
         <div className="w-full h-[5px] relative">
           <div className="w-full h-full bg-neutral-200 rounded-md absolute top-0" />
           <div
             className={`h-full bg-green-500 rounded-md  absolute top-0`}
             style={{
-              width: `${53.0 * count}px`,
+              width: `${Math.ceil(((7.1 * counter) / 100) * 280)}%`,
             }}
           />
         </div>

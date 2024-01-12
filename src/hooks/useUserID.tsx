@@ -3,11 +3,15 @@ import { viewMember, viewMemberDetail } from "../api/memberAPI";
 import useSWR from "swr";
 
 export const useUser = (readID: string) => {
-  const { data: user } = useSWR(`/read-user/${readID}`, () => {
-    return getUserAPI(readID).then((res) => {
-      return res.data;
-    });
-  });
+  const { data: user } = useSWR(
+    `/read-user/${readID}`,
+    () => {
+      return getUserAPI(readID).then((res) => {
+        return res.data;
+      });
+    },
+    { refreshInterval: 5000 }
+  );
 
   return { user };
 };

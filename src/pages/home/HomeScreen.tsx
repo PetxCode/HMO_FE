@@ -3,6 +3,8 @@ import { useUser, useUserID } from "../../hooks/useUserID";
 import Personal from "./Personal";
 import Button from "../../components/reUse/Button";
 import LittleHeader from "../../components/layout/LittleHeader";
+import { FaBuildingUser, FaCheckDouble } from "react-icons/fa6";
+import HospitalDetails from "../settings/HospitalDetails";
 
 const HomeScreen = () => {
   document.title = "Family Record and Stats";
@@ -11,83 +13,26 @@ const HomeScreen = () => {
   const { user: data }: any = useUser(userID);
 
   return (
-    <div className="text-blue-950">
+    <div className="text-blue-950 flex flex-col h-full">
       <LittleHeader name={"Home"} />
-      <div className="flex flex-wrap justify-center">
-        <div className="w-[300px] m-4 rounded-md border p-4">
+
+      <div className=" grid grid-cols-1 lg:grid-cols-2 gap-3">
+        <div className="min-w-[300px]  rounded-md border p-4">
           <div className="mb-4 text-medium capitalize">Personal Info</div>
           <Personal props={userID} />
         </div>
 
-        {/* Family Hospital Details */}
-
-        <div className="w-[300px] m-4 rounded-md border p-4">
-          <div className="mb-4 text-medium capitalize">
-            Family Hospital Details
+        <div className="min-w-[300px] rounded-md border p-4">
+          <div className="mb-4 text-[14px] font-normal capitalize">
+            Family Number Count, including you
           </div>
-
-          <div>
-            {data?.familyHospital?.length > 0 ? (
-              <div>
-                {data?.familyHospital?.map((el: any) => {
-                  <div key={el?._id}>
-                    <div>
-                      <span>{el}</span>
-                    </div>
-                  </div>;
-                })}
-              </div>
-            ) : (
-              <div className="flex flex-col w-full items-center">
-                <MdPlaylistAddCheck size={30} />
-                <p className="font-medium text-[13px]">
-                  No Hospital Record yet
-                </p>
-              </div>
-            )}
-          </div>
-        </div>
-
-        {/* Appointment */}
-
-        <div className="w-[300px] m-4 rounded-md border p-4">
-          <div className="mb-4 text-medium capitalize">
-            Personal Appointment Details
-          </div>
-
-          <div>
-            {data?.appointment?.length > 0 ? (
-              <div>
-                {data?.appointment?.map((el: any) => {
-                  <div key={el?._id}>
-                    <div>
-                      <span>{el}</span>
-                    </div>
-                  </div>;
-                })}
-              </div>
-            ) : (
-              <div className="flex flex-col w-full items-center">
-                <MdPlaylistAddCheck size={30} />
-                <p className="font-medium text-[13px]">
-                  No Appointment Record yet
-                </p>
-              </div>
-            )}
-          </div>
-        </div>
-
-        {/* Appointment */}
-
-        <div className="w-[300px] m-4 rounded-md border p-4">
-          <div className="mb-4 text-medium capitalize">Family Number Count</div>
 
           <div>
             {data?.members?.length > 0 ? (
               <div className="flex justify-center gap-3 w-full items-center ">
                 <MdPeople size={25} />
                 <p className="font-medium text-[30px]">
-                  {data?.members?.length}
+                  {data?.members?.length + 1}
                 </p>
               </div>
             ) : (
@@ -109,6 +54,74 @@ const HomeScreen = () => {
             />
           </div>
         </div>
+
+        <div className="border rounded-md flex gap-2 w-full p-2 col-span-1 lg:col-span-3  ">
+          {/* Appointment */}
+
+          <div className=" rounded-md w-full  p-4">
+            <div className="mb-4 text-medium capitalize">
+              Personal Appointment Details
+            </div>
+
+            <div>
+              {data?.appointment?.length > 0 ? (
+                <div>
+                  {data?.appointment?.map((el: any) => {
+                    <div key={el?._id}>
+                      <div>
+                        <span>{el}</span>
+                      </div>
+                    </div>;
+                  })}
+                </div>
+              ) : (
+                <div className="flex flex-col w-full items-center">
+                  <MdPlaylistAddCheck size={30} />
+                  <p className="font-medium text-[13px]">
+                    No Appointment Record yet
+                  </p>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="flex-1" />
+      <div className=" border bg-slate-50 mt-10 p-2 ">
+        {data?.familyHospital?.length > 0 ? (
+          <div className=" grid grid-cols-1  lg:grid-cols-2 xl:grid-cols-3 gap-3">
+            <div className="border rounded-md flex gap-2 w-full p-2 overflow-hidden">
+              <FaBuildingUser size={25} />
+              <HospitalDetails
+                state={data?.familyHospital[0]}
+                choice="First Choice"
+              />
+            </div>
+
+            <div className="border rounded-md flex gap-2 w-full p-2">
+              <FaBuildingUser size={25} />
+              <HospitalDetails
+                state={data?.familyHospital[1]}
+                choice="Second Choice"
+              />
+            </div>
+
+            <div className="border rounded-md flex gap-2 w-full p-2 col-span-1 lg:col-span-3  xl:col-span-1  ">
+              <FaBuildingUser size={25} />
+              <HospitalDetails
+                state={data?.familyHospital[2]}
+                choice="Third Choice"
+              />
+            </div>
+          </div>
+        ) : (
+          <div className="flex flex-col items-center justify-center p-4">
+            <FaCheckDouble />
+            <p className="mt-3 text-[12px] font-medium">
+              No hospital Enter yet
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );

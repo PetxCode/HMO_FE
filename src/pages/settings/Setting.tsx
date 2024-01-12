@@ -45,8 +45,9 @@ const SettingScreen: FC = () => {
             Main Settings Page
           </div>
           <div className="text-[13px]">
-            <strong className="font-[600]">
-              {data?.firstName} {data?.lastName}
+            &middot;
+            <strong className="font-[600] mr-1">
+              {data?.firstName} {data?.lastName} &middot;
             </strong>
             {data?.email} &middot;{" "}
             <Link
