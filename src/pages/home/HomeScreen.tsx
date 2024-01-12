@@ -5,12 +5,15 @@ import Button from "../../components/reUse/Button";
 import LittleHeader from "../../components/layout/LittleHeader";
 import { FaBuildingUser, FaCheckDouble } from "react-icons/fa6";
 import HospitalDetails from "../settings/HospitalDetails";
+import pix from "../../assets/pix.jpg";
 
 const HomeScreen = () => {
   document.title = "Family Record and Stats";
 
   const { user: userID }: any = useUserID();
   const { user: data }: any = useUser(userID);
+
+  const viewMembership = Array.from({ length: 3 });
 
   return (
     <div className="text-blue-950 flex flex-col h-full">
@@ -47,11 +50,30 @@ const HomeScreen = () => {
 
           <div className="border-b my-5" />
 
-          <div className="flex w-full justify-center">
-            <Button
+          <div className="flex flex-col items-center w-full justify-center">
+            {/* <Button
               name="Handle Subscription"
               className="text-white bg-blue-950 hover:bg-blue-900 hover:scale-[1.02] transition-all duration-300 "
-            />
+            /> */}
+
+            <p className="mb-3 text-[14px] font-medium">View Family Member</p>
+
+            <div className="grid grid-cols-12  ">
+              {viewMembership?.map((props: any, i: number) => (
+                <div
+                  key={i}
+                  className="flex flex-col items-center group transition-all duration-300  cursor-pointer"
+                >
+                  <img
+                    src={pix}
+                    className="object-cover rounded-full min-w-14 h-14 border-2 border-white"
+                  />
+                  <p className="text-[12px] opacity-0 font-medium group-hover:opacity-100 transition-all duration-300">
+                    name
+                  </p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 

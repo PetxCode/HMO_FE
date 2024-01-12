@@ -8,8 +8,6 @@ import DateTimePicker from "react-datetime-picker";
 import "react-datetime-picker/dist/DateTimePicker.css";
 import "react-datepicker/dist/react-datepicker.css";
 import DatePicker from "react-datepicker";
-import Input from "../../components/reUse/Input";
-// import "./style.css";
 
 type ValuePiece = Date | null;
 
@@ -19,17 +17,12 @@ const Appoinments = () => {
 
   const { user: userID }: any = useUserID();
   const { user } = useUser(userID);
-  const [value, onChange] = useState<Value>(new Date());
 
   const [state1, setState1] = useState<string>("");
-  const [minutes, setMinutes] = useState<any>();
-  const [hours, setHours] = useState<any>();
-  // const [startDate, setStartDate] = useState(setHours(setMinutes(new Date())));
+  const [reason, setReason] = useState<string>("");
 
   const [startDateTime, setStartDateTime] = useState<any>();
-  const [endDateTime, setEndDateTime] = useState(new Date());
 
-  const [startDate, setStartDate] = useState(new Date());
   return (
     <div>
       <div>
@@ -79,7 +72,13 @@ const Appoinments = () => {
 
             <p className="mt-5 mb-2">Reason for Appointment</p>
             <div className=" mt-1 w-[100%] outline-none h-12 flex items-center pb-5">
-              <textarea className="border rounded-md w-[94%] min-h-[120px] ml-2 mt-[90px] resize-none" />
+              <textarea
+                className="border rounded-md w-[94%] min-h-[120px] ml-2 mt-[90px] resize-none p-2"
+                value={reason}
+                onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
+                  setReason(e.target.value);
+                }}
+              />
             </div>
           </div>
         </div>
@@ -92,12 +91,72 @@ const Appoinments = () => {
           <div>
             {state1 ? (
               <HospitalDetails state={state1} choice="Hospital choosen" />
-            ) : startDateTime ? (
-              <div>{moment(startDateTime).format("llll")}</div>
+            ) : (
+              <div>No Data Yet</div>
+            )}
+
+            <div className="my-8" />
+            {startDateTime ? (
+              <div className="flex gap-8">
+                <p>
+                  <span className="text-[13px] font-medium ">
+                    Scheduled Date:
+                  </span>{" "}
+                  <div className="text-[13px] font-normal ">
+                    {moment(startDateTime).format("LLLL").split(",")[0]}
+                    {moment(startDateTime).format("LLLL").split(",")[1]}
+                    <span className="ml-1">
+                      {
+                        moment(startDateTime)
+                          .format("LLLL")
+                          .split(",")[2]
+                          .split(" ")[1]
+                      }
+                    </span>
+                  </div>
+                </p>
+                <p>
+                  <span className="text-[13px] font-medium ">
+                    Scheduled Time:
+                  </span>{" "}
+                  <div className="text-[13px] font-normal ">
+                    <span className="">
+                      {
+                        moment(startDateTime)
+                          .format("LLLL")
+                          .split(",")[2]
+                          .split(" ")[2]
+                      }
+                    </span>
+                    <span className="ml-1 mt-5">
+                      {
+                        moment(startDateTime)
+                          .format("LLLL")
+                          .split(",")[2]
+                          .split(" ")[3]
+                      }
+                    </span>
+                  </div>
+                </p>
+              </div>
             ) : (
               <div>No Data Yet</div>
             )}
           </div>
+
+          <div className="my-8" />
+          {startDateTime ? (
+            <div className="flex gap-8">
+              <p>
+                <span className="text-[13px] font-medium ">
+                  Reason for Appointment:
+                </span>{" "}
+                <div className="text-[13px] font-normal ">{reason}</div>
+              </p>
+            </div>
+          ) : (
+            <div>No Data Yet</div>
+          )}
         </div>
       </div>
     </div>
