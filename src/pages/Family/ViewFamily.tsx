@@ -1,6 +1,6 @@
 import LittleHeader from "../../components/layout/LittleHeader";
 import { useUser, useUserID, useViewMember } from "../../hooks/useUserID";
-import FamilyProps from "./FamilyProps";
+import FamilyProps from "./familyProps";
 
 const ViewFamily = () => {
   document.title = "View Family";
