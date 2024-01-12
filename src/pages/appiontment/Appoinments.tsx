@@ -47,9 +47,9 @@ const Appoinments = () => {
           <div className="mt-5 text-[12px]">
             <p>Choose an Hospital</p>
 
-            <div className="flex w-full">
+            <div className="flex w-[98%]">
               <select
-                className="flex-1 px-2 h-[50px]  border rounded-md m-2  relative transition-all outline-none duration-300 mb-6"
+                className="flex-1 px-2 h-[50px]  border rounded-md m-2 w-[93%] relative transition-all outline-none duration-300 mb-6"
                 value={state1}
                 onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
                   setState1(e.target.value);
@@ -70,17 +70,16 @@ const Appoinments = () => {
                 selected={startDateTime!}
                 onChange={(date: any) => {
                   setStartDateTime(date);
-                  console.log(date);
                 }}
                 showTimeSelect
                 dateFormat="MMMM d, yyyy h:mm aa"
-                className="outline-none w-[120%] text-[14px] font-medium "
+                className="outline-none w-[120%] text-[14px] font-normal capitalize "
               />
             </div>
 
             <p className="mt-5 mb-2">Reason for Appointment</p>
             <div className=" mt-1 w-[100%] outline-none h-12 flex items-center pb-5">
-              <textarea className="border rounded-md w-[96%] min-h-[120px] ml-2 mt-[90px]" />
+              <textarea className="border rounded-md w-[94%] min-h-[120px] ml-2 mt-[90px] resize-none" />
             </div>
           </div>
         </div>

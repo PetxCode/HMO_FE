@@ -7,7 +7,6 @@ import AddMember from "../../pages/family/AddMember";
 
 const Layout = () => {
   const memberState = useSelector((state: any) => state.memberToggle);
-  console.log(memberState);
   const dispatch = useDispatch();
   return (
     <div className="flex w-[100%]">
@@ -19,7 +18,7 @@ const Layout = () => {
         <div className="flex flex-col w-[100%] transition-all duration-300 md:w-[calc(100%-250px)] justify-end">
           <Header />
           <div
-            className={`min-h-[calc(100vh-72px)] p-2 m-2 border rounded-md mt-16`}
+            className={`min-h-[calc(100vh-72px)] p-2 m-2 border rounded-md mt-16 relative`}
             onClick={() => {
               dispatch(changeToggleToFalse());
             }}
@@ -27,18 +26,18 @@ const Layout = () => {
             <Outlet />
 
             {memberState && (
-              <div className="relative w-[100%] h-[99.2%] ">
-                <div
-                  className="-top-6 w-full h-full left-0 absolute rounded-md "
-                  style={{
-                    background: "rgba(73, 154, 255, 0.2)",
-                    boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
-                    backdropFilter: "blur(5px)",
-                    border: "1px solid rgba(73, 154, 255, 0.3)",
-                  }}
-                >
-                  <AddMember />
-                </div>
+              //   <div className="relative  ">
+              <div
+                className="-top-0 w-full h-full left-0 absolute rounded-md "
+                style={{
+                  background: "rgba(73, 154, 255, 0.2)",
+                  boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
+                  backdropFilter: "blur(5px)",
+                  border: "1px solid rgba(73, 154, 255, 0.3)",
+                }}
+              >
+                <AddMember />
+                {/* </div> */}
               </div>
             )}
           </div>
