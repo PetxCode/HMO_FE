@@ -4,10 +4,13 @@ import { useHospital } from "../../hooks/useHospital";
 interface iProps {
   state?: string;
   choice?: string;
+  setStateName?: any;
+  stateName?: string;
 }
 
-const HospitalDetails: FC<iProps> = ({ state, choice }) => {
+const HospitalDetails: FC<iProps> = ({ stateName, state, choice }) => {
   const { data } = useHospital(state!);
+  stateName = data?.hospitalName;
 
   return (
     <div className="break-words text-[12px]">

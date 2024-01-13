@@ -5,6 +5,12 @@ import LittleHeader from "../../components/layout/LittleHeader";
 import { FaBuildingUser, FaCheckDouble } from "react-icons/fa6";
 import HospitalDetails from "../settings/HospitalDetails";
 import pix from "../../assets/pix.jpg";
+import Button from "../../components/reUse/Button";
+import { useUserPayment } from "../../hooks/usePayment";
+import { useState } from "react";
+import { usePaystackPayment } from "react-paystack";
+import { makePaymentAPI } from "../../api/paymentAPI";
+import Clipboard from "react-spinners/ClipLoader";
 
 const HomeScreen = () => {
   document.title = "Family Record and Stats";
@@ -12,19 +18,102 @@ const HomeScreen = () => {
   const { user: userID }: any = useUserID();
   const { user: data }: any = useUser(userID);
 
+  const [state, setState] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const { data: payment } = useUserPayment(userID);
   const viewMembership = Array.from({ length: 3 });
+
+  const config = {
+    reference: new Date().getTime().toString(),
+    email: data?.email,
+    amount: 2000 * (data?.members?.length + 1) * 12 * 100, //Amount is in the country's lowest currency. E.g Kobo, so 20000 kobo = N200
+    publicKey: "pk_test_5a0581a5d3a5e4eff176456546f8e4b3f32d2d01",
+  };
+
+  const initializePayment: any = usePaystackPayment(config);
+  // makePaymentAPI(userID);
+
+  const onSuccess = () => {
+    // Implementation for whatever you want to do with reference and after success call.
+    makePaymentAPI(userID).then(() => {
+      setLoading(false);
+    });
+    console.log("reference");
+  };
+
+  // you can call this function anything
+  const onClose = () => {
+    // implementation for  whatever you want to do when the Paystack dialog closed.
+    console.log("closed");
+  };
 
   return (
     <div className="text-blue-950 flex flex-col h-full">
       <LittleHeader name={"Home"} />
 
       <div className=" grid grid-cols-1 lg:grid-cols-2 gap-3">
-        <div className="min-w-[300px]  rounded-md border p-4">
+        <div className="min-w-[300px] h-full flex flex-col rounded-md border p-4">
           <div className="mb-4 text-medium capitalize">Personal Info</div>
           <Personal props={userID} />
+
+          <div className="flex-1" />
+          <div className="text-[13px] font-medium mt-4">
+            <div className="flex items-center gap-4">
+              <div className="border-r pr-4 ">
+                {state ? (
+                  <label className="relative w-20 h-20 flex flex-col items-center cursor-pointer">
+                    <input
+                      type="checkbox"
+                      value={state}
+                      onChange={() => {
+                        setState("");
+                      }}
+                      className="sr-only peer"
+                    />
+
+                    <div className="absolute -bottom-0 w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-900 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-950" />
+                    <span className="absolute text-[12px] leading-tight mt-2 font-medium text-gray-900 dark:text-gray-300">
+                      View Subs Status
+                    </span>
+                  </label>
+                ) : (
+                  <label className="relative w-20 flex flex-col h-20 items-center cursor-pointer">
+                    <input
+                      type="checkbox"
+                      className="sr-only peer"
+                      value={state}
+                      onChange={() => {
+                        setState("dd");
+                      }}
+                    />
+
+                    <div className=" absolute -bottom-0 w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-950" />
+
+                    <span className="absolute text-[12px] leading-tight mt-2 font-medium text-gray-900 dark:text-gray-300">
+                      View Subs Status
+                    </span>
+                  </label>
+                )}
+              </div>
+              <div className="w-[60%] text-blue-950">
+                {state ? (
+                  <div>
+                    Your subscription starts:{" "}
+                    <span>{payment?.payments[0]?.startDate}</span>
+                  </div>
+                ) : (
+                  <div>
+                    Your subscription expires:{" "}
+                    <span>{payment?.payments[0]?.endDate}</span>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div className="min-w-[300px] rounded-md border p-4">
+        <div className="min-w-[300px] h-full flex flex-col rounded-md border p-4">
           <div className="mb-4 text-[14px] font-normal capitalize">
             Family Number Count, including you
           </div>
@@ -32,29 +121,53 @@ const HomeScreen = () => {
           <div>
             {data?.members?.length > 0 ? (
               <div className="flex justify-center gap-3 w-full items-center ">
-                <MdPeople size={25} />
-                <p className="font-medium text-[30px]">
-                  {data?.members?.length + 1}
-                </p>
+                <div className="leading-tight">
+                  <div className="flex items-center">
+                    <MdPeople size={25} />
+                    <p className="font-medium text-[30px] ml-1">
+                      {data?.members?.length + 1}
+                    </p>
+                  </div>
+                  <p className="leading-tight">
+                    cost:{" "}
+                    <strong className="text-blue-950 font-bold">
+                      ₦{2000 * (data?.members?.length + 1).toLocaleString()}
+                    </strong>
+                  </p>
+                </div>
+
+                {/* from Paysatck */}
+                <div className="border-l ">
+                  <Button
+                    name={
+                      loading ? "Processing Payment" : "Handle Subscription"
+                    }
+                    icon={loading && <Clipboard color="white" size={20} />}
+                    className="text-white bg-blue-950 hover:bg-blue-900 hover:scale-[1.02] transition-all duration-300 ml-3"
+                    onClick={() => {
+                      setLoading(true);
+                      initializePayment(onSuccess, onClose);
+                      // makePaymentAPI(userID).then(() => {
+                      //   setLoading(false);
+                      // });
+                    }}
+                  />
+                </div>
               </div>
             ) : (
               <div className="flex flex-col w-full items-center">
                 <MdPlaylistAddCheck size={30} />
                 <p className="font-medium text-[13px]">
-                  No Appointment Record yet
+                  No Appointment Record yet:{" "}
                 </p>
               </div>
             )}
           </div>
 
+          <div className="flex-1" />
           <div className="border-b my-5" />
 
           <div className="flex flex-col items-center w-full justify-center">
-            {/* <Button
-              name="Handle Subscription"
-              className="text-white bg-blue-950 hover:bg-blue-900 hover:scale-[1.02] transition-all duration-300 "
-            /> */}
-
             <p className="mb-3 text-[14px] font-medium">View Family Member</p>
 
             <div className="grid grid-cols-12  ">

@@ -1,14 +1,16 @@
-import { logoutAPI } from "../../api/userAPI";
+import { logoutAPI, updateUserAvatraAPI } from "../../api/userAPI";
 import {
   changeToggle,
   changeToggleMenuToFalse,
   logoutState,
 } from "../../global/reduxState";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { MdLogout } from "react-icons/md";
-import { FC, ReactNode } from "react";
+import { FC, ReactNode, useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import Button from "../reUse/Button";
+import { useUserID } from "../../hooks/useUserID";
+import { IoMdImages } from "react-icons/io";
 
 interface iData {
   title?: string;
@@ -24,7 +26,10 @@ interface iProps {
 }
 
 const SmallPiece: FC<iProps> = ({ log, name, but }) => {
+  const { user: userID } = useUserID();
   const dispatch = useDispatch();
+
+  const toggle = useSelector((state: any) => state.toggle);
 
   const handleToggleMenuFalse = () => {
     if (!document.startViewTransition) {
@@ -35,9 +40,30 @@ const SmallPiece: FC<iProps> = ({ log, name, but }) => {
       });
     }
   };
+  const [state, setState] = useState<string>("");
+
+  const changeImage = (e: any) => {
+    const file = e.target.files[0];
+
+    const formData: any = new FormData();
+    formData.append("avatar", file);
+    setState(file);
+    console.log(state);
+    console.log(userID);
+
+    if (state) {
+      const timer = setTimeout(() => {
+        updateUserAvatraAPI(userID, formData);
+
+        clearTimeout(timer);
+      }, 1000);
+    }
+
+    dispatch(changeToggle());
+  };
 
   return (
-    <div className="border w-[150px] bg-purple-50 shadow-sm min-h-10 rounded-md p-1 ">
+    <div className="border w-[150px] bg-blue-50 shadow-sm min-h-10 rounded-md p-1 ">
       <div className="flex flex-col items-between w-full">
         {name?.map(({ title, icon, to }, i: number) => (
           <NavLink
@@ -47,7 +73,7 @@ const SmallPiece: FC<iProps> = ({ log, name, but }) => {
           "
             onClick={handleToggleMenuFalse}
           >
-            <div className="text-[12px] w-full font-medium  duration-300 transition-all hover:bg-purple-500 p-2 rounded-md my-1 hover:text-white cursor-pointer flex items-center justify-between">
+            <div className="text-[12px] w-full font-medium  duration-300 transition-all hover:bg-blue-950 p-2 rounded-md my-1 hover:text-white cursor-pointer flex items-center justify-between">
               <div>{title}</div>
               <div className="text-[17px]">{icon}</div>
             </div>
@@ -60,7 +86,7 @@ const SmallPiece: FC<iProps> = ({ log, name, but }) => {
           <NavLink to="/upgrade" onClick={handleToggleMenuFalse}>
             <Button
               name="upgrade"
-              className="text-[12px] uppercase font-bold bg-purple-500 text-white rounded-[3px]"
+              className="text-[12px] uppercase font-bold bg-blue-950 text-white rounded-[3px]"
             />
           </NavLink>
         </div>
@@ -68,7 +94,28 @@ const SmallPiece: FC<iProps> = ({ log, name, but }) => {
 
       {log && (
         <div
-          className="text-[12px] font-medium  duration-300 transition-all hover:bg-purple-500 p-2 rounded-md my-1 hover:text-white cursor-pointer flex items-center justify-between"
+          className="text-[12px] font-medium  duration-300 transition-all hover:bg-blue-950 p-2 rounded-md my-1 hover:text-white cursor-pointer flex items-center justify-between"
+          onClick={() => {
+            // dispatch(logoutState());
+            dispatch(changeToggle());
+          }}
+        >
+          <label htmlFor="id">Upload Avatar</label>
+          <input
+            id="id"
+            className="hidden"
+            onChange={changeImage}
+            type="file"
+          />
+          <div>
+            <IoMdImages size={17} />
+          </div>
+        </div>
+      )}
+
+      {log && (
+        <div
+          className="text-[12px] font-medium  duration-300 transition-all hover:bg-blue-950 p-2 rounded-md my-1 hover:text-white cursor-pointer flex items-center justify-between"
           onClick={() => {
             dispatch(logoutState());
             logoutAPI();

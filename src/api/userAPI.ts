@@ -121,3 +121,18 @@ export const hospitalChoiceAPI = async (data: any, userID: string) => {
     return error;
   }
 };
+
+export const updateUserAvatraAPI = async (userID: string, data: any) => {
+  try {
+    const config: any = {
+      "Content-Type": "multipart/form-data",
+    };
+    return await axios
+      .patch(`${URL}/update-avatar/${userID}`, data, config)
+      .then((res) => {
+        return res.data;
+      });
+  } catch (error) {
+    return error;
+  }
+};

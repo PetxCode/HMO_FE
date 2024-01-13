@@ -5,10 +5,16 @@ import { FaBarsProgress } from "react-icons/fa6";
 import { useDispatch, useSelector } from "react-redux";
 import { changeMemberState, changeToggleText } from "../../global/reduxState";
 import { useEffect } from "react";
+import { useUserPayment } from "../../hooks/usePayment";
+import { useUser, useUserID } from "../../hooks/useUserID";
 
 const Sider = () => {
   const dispatch = useDispatch();
   const toggleText = useSelector((state: any) => state.toggleText);
+
+  const { user: userID }: any = useUserID();
+  const { user: data }: any = useUser(userID);
+  const { data: payment } = useUserPayment(userID);
 
   const onHandleClick = () => {
     if (!document.startViewTransition) {
@@ -43,17 +49,29 @@ const Sider = () => {
 
       <div className="mt-16 px-2 text-center flex flex-col border mx-2 rounded-md py-4">
         <div className="mb-4 text-[18px] font-medium">
-          You are currently on a Family plan
+          You are currently on a {data?.plan}{" "}
+          {payment?.payments?.[0]?.subscriptionPlan}
         </div>
         <div className="flex w-full justify-center">
           {/* <NavLink to="upgrade"> */}
-          <Button
-            name="Add Member"
-            className="bg-black text-white border-none"
-            onClick={() => {
-              onHandleClick();
-            }}
-          />
+          {data?.plan !== "active" ? (
+            <Button
+              name="Add Member"
+              className="bg-black text-white border-none leading-tight"
+              onClick={() => {
+                onHandleClick();
+              }}
+            />
+          ) : (
+            <Button
+              name="You can't Add Member Now"
+              className="bg-red-600 text-white border-none font-medium  leading-tight"
+              onClick={() => {
+                onHandleClick();
+              }}
+            />
+          )}
+
           {/* </NavLink> */}
         </div>
       </div>

@@ -23,9 +23,6 @@ const PrivateRouter: FC<PropsWithChildren> = ({ children }) => {
     setRead(userData === state);
   }, [userData, state]);
 
-  console.log(user);
-  console.log(read);
-
   return (
     <div>
       {user! ? (

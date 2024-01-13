@@ -1,5 +1,9 @@
 import useSWR from "swr";
-import { readAllHopitalAPI, readHopitalAPI } from "../api/hospitalAPI";
+import {
+  readAllHopitalAPI,
+  readHopitalAPI,
+  viewAppointmentByAPI,
+} from "../api/hospitalAPI";
 
 export const useAllHospital = () => {
   const { data } = useSWR(`/view-all-hospital/`, () => {
@@ -17,6 +21,20 @@ export const useHospital = (hospitalID: string) => {
       return res.data;
     });
   });
+
+  return { data };
+};
+
+export const useUserHospitalAppointment = (userID: string) => {
+  const { data } = useSWR(
+    `/view-all-hospital/${userID}`,
+    () => {
+      return viewAppointmentByAPI(userID).then((res) => {
+        return res.data;
+      });
+    },
+    { refreshInterval: 5000 }
+  );
 
   return { data };
 };

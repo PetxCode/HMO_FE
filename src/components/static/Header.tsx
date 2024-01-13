@@ -11,8 +11,12 @@ import {
   MdQueryStats,
   MdReport,
 } from "react-icons/md";
+import { useUser, useUserID } from "../../hooks/useUserID";
 
 const Header = () => {
+  const { user: userID } = useUserID();
+  const { user } = useUser(userID);
+
   const dispatch = useDispatch();
   const toggle = useSelector((state: any) => state.toggle);
   const toggleMenu = useSelector((state: any) => state.toggleMenu);
@@ -39,7 +43,10 @@ const Header = () => {
             dispatch(changeToggle());
           }}
         >
-          <img className="w-8 h-8 rounded-full border object-cover" src={pic} />
+          <img
+            className="w-8 h-8 rounded-full border object-cover"
+            src={user?.avatar ? user?.avatar : pic}
+          />
 
           {toggle ? (
             <FaArrowDown className="rotate-180 duration-300 transition-all" />
@@ -65,7 +72,7 @@ const Header = () => {
 
       <div
         className={`absolute duration-300 transition-all ${
-          toggle ? "right-6 top-14  " : "right-6 -top-24  "
+          toggle ? "right-6 top-14  " : "right-6 -top-36  "
         }`}
       >
         <SmallPiece

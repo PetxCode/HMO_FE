@@ -7,8 +7,14 @@ import HospitalDetails from "../settings/HospitalDetails";
 import "react-datetime-picker/dist/DateTimePicker.css";
 import "react-datepicker/dist/react-datepicker.css";
 import DatePicker from "react-datepicker";
+import Button from "../../components/reUse/Button";
+import ClipLoader from "react-spinners/ClipLoader";
+import { MdBook } from "react-icons/md";
+import { createAppointmentByAPI } from "../../api/hospitalAPI";
+import { useNavigate } from "react-router-dom";
 
 const Appoinments = () => {
+  const navigate = useNavigate();
   document.title = "Appoinments Screen";
 
   const { user: userID }: any = useUserID();
@@ -16,6 +22,9 @@ const Appoinments = () => {
 
   const [state1, setState1] = useState<string>("");
   const [reason, setReason] = useState<string>("");
+
+  const [stateName, setStateName] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
 
   const [startDateTime, setStartDateTime] = useState<any>();
 
@@ -29,7 +38,7 @@ const Appoinments = () => {
 
       <div className="w-full gap-2 grid grid-cols-5 ">
         <div className="border rounded-md p-4 col-span-2 pb-12 h-[500px]">
-          <p className="pb-5 text-[13px] font-medium  border-b">
+          <p className="pb-5 text-[15px] font-medium  border-b">
             Schedule Appointment
           </p>
 
@@ -76,19 +85,55 @@ const Appoinments = () => {
                 }}
               />
             </div>
+
+            <div className="mt-[85px] w-[97%]">
+              {state1 && reason && startDateTime && (
+                <Button
+                  name="Add Member"
+                  className="w-[97%] mt-12 bg-blue-950 text-white h-14 hover:bg-blue-900 transition-all duration-300"
+                  type="submit"
+                  onClick={() => {
+                    setLoading(true);
+                    createAppointmentByAPI(userID, {
+                      hospitalName: stateName,
+                      reason,
+                      appointmentDate: moment(startDateTime).format("LLLL"),
+                    })
+                      .then(() => {
+                        setLoading(false);
+                      })
+                      .then(() => {
+                        navigate(-1);
+                      });
+                  }}
+                  icon={
+                    loading ? (
+                      <ClipLoader color="white" size={18} />
+                    ) : (
+                      <MdBook size={23} />
+                    )
+                  }
+                />
+              )}
+            </div>
           </div>
         </div>
 
         <div className="border rounded-md p-4 col-span-3">
-          <p className="pb-5 text-[13px] font-medium border-b">
+          <p className="pb-5 text-[15px] font-medium border-b">
             Display Appointment
           </p>
 
-          <div>
+          <div className="">
             {state1 ? (
-              <HospitalDetails state={state1} choice="Hospital choosen" />
+              <HospitalDetails
+                setStateName={setStateName}
+                stateName={stateName}
+                state={state1}
+                choice="Hospital choosen"
+              />
             ) : (
-              <div>No Data Yet</div>
+              <div>No Choosen Hospital Data Yet</div>
             )}
 
             <div className="my-8" />
@@ -136,10 +181,9 @@ const Appoinments = () => {
                 </p>
               </div>
             ) : (
-              <div>No Data Yet</div>
+              <div>No Choosen Scheduled Data Yet</div>
             )}
           </div>
-
           <div className="my-8" />
           {startDateTime ? (
             <div className="flex gap-8">
@@ -151,7 +195,7 @@ const Appoinments = () => {
               </p>
             </div>
           ) : (
-            <div>No Data Yet</div>
+            <div>No Reasonable Data Yet</div>
           )}
         </div>
       </div>
