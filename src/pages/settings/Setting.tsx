@@ -12,14 +12,14 @@ const SettingScreen: FC = () => {
 
   const pathData = [
     {
-      icon: <RiPagesLine size={35} />,
+      icon: <RiPagesLine size={45} />,
       title: "Personal Info",
       detail: " Provide personal details and how we can reach you.",
       url: "/my-personal-info/info",
       size: 35,
     },
     {
-      icon: <RiPagesLine size={35} />,
+      icon: <RiPagesLine size={45} />,
 
       title: "Professional Info",
       detail: " Provide personal details and how we can reach you.",
@@ -27,7 +27,7 @@ const SettingScreen: FC = () => {
       size: 35,
     },
     {
-      icon: <HiMiniBuildingOffice2 size={35} />,
+      icon: <HiMiniBuildingOffice2 size={45} />,
       title: "Hospital Info",
       detail: " Provide studio details and how we can reach you.",
       url: "/my-personal-info/choose-hospital",
@@ -62,13 +62,17 @@ const SettingScreen: FC = () => {
 
       {/* profile Account Detail Card */}
 
-      <div className="my-6 flex flex-wrap text-blue-950">
+      <div
+        className="my-6 text-blue-950 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-2 transition-all duration-300 lg:[&>*:nth-child(3)]:col-span-2 xl:[&>*:nth-child(3)]:col-span-1
+      "
+      >
         {pathData.map((props: any, i: number) => (
           <Link to={`${props.url}`} key={i} className="text-black">
-            <div className="w-[300px] border rounded-md p-3  m-2 min-h-[150px] text-blue-950 shadow-md flex flex-col hover:shadow-lg">
-              <div className="flex-1 text-blue-950">{props.icon}</div>
-              <div className="font-[400] mb-1">{props.title}</div>
-              <div className="text-[12px] leading-4 font-[300]">
+            <div className="min-w-[300px] border rounded-md p-3 min-h-[200px] text-blue-950 shadow-md flex flex-col hover:shadow-lg">
+              <div className="flex-1  text-blue-950">{props.icon}</div>
+
+              <div className="font-[500] mb-2 text-[20px]">{props.title}</div>
+              <div className="text-[15px] leading-4 font-[300]">
                 {props.detail}
               </div>
             </div>

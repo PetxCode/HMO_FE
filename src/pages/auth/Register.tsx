@@ -4,18 +4,24 @@ import Input from "../../components/reUse/Input";
 import { FaGoogle } from "react-icons/fa6";
 import { Link, useNavigate } from "react-router-dom";
 import { registerAPI } from "../../api/userAPI";
+import ClipLoader from "react-spinners/ClipLoader";
 
 const Register = () => {
   const navigate = useNavigate();
   const [state, setState] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-
+    setLoading(true);
     if (state !== "") {
-      registerAPI(state).then(() => {
-        navigate("/register-info");
-      });
+      registerAPI(state)
+        .then(() => {
+          setLoading(false);
+        })
+        .then(() => {
+          navigate("/register-info");
+        });
     }
   };
 
@@ -49,8 +55,9 @@ const Register = () => {
         <div>
           <Button
             name="Register"
-            className="w-[97%] bg-blue-500 text-white h-14 hover:bg-blue-600 transition-all duration-300"
+            className="w-[97%] bg-blue-900 text-white h-14 hover:bg-blue-800 transition-all duration-300"
             type="submit"
+            icon={loading && <ClipLoader color="white" size={18} />}
             // onClick={handleSubmit}
           />
         </div>
@@ -60,7 +67,7 @@ const Register = () => {
         <div className="flex flex-col">
           <Button
             name="Continue with Google"
-            className="h-14 hover:bg-red-500 hover:text-white  transition-all duration-300 font-medium text-[#ababab]"
+            className="h-14 bg-red-500 hover:bg-red-600 hover:text-white  transition-all duration-300 font-medium text-[#ababab]"
             icon={<FaGoogle />}
           />
         </div>

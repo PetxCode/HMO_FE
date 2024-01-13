@@ -6,6 +6,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { loginAPI, verifyAPI } from "../../api/userAPI";
 import { useDispatch } from "react-redux";
 import { loginState } from "../../global/reduxState";
+import ClipLoader from "react-spinners/ClipLoader";
 
 const SignIn = () => {
   const dispatch = useDispatch();
@@ -13,13 +14,20 @@ const SignIn = () => {
   const [state, setState] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
+  const [loading, setLoading] = useState<boolean>(false);
+
   const handleSubmit = () => {
     // e.preventDefault();
+    setLoading(true);
     const val = { email: state, token: password };
-    loginAPI(val).then((res) => {
-      dispatch(loginState(res.data));
-      navigate("/");
-    });
+    loginAPI(val)
+      .then((res) => {
+        dispatch(loginState(res.data));
+        setLoading(false);
+      })
+      .then(() => {
+        navigate("/");
+      });
   };
 
   const { userID } = useParams();
@@ -74,10 +82,11 @@ const SignIn = () => {
 
         <div>
           <Button
-            name="Login"
-            className="w-[97%] bg-blue-500 text-white h-14 hover:bg-blue-600 transition-all duration-300"
+            name={loading ? "Loading..." : "Login"}
+            className="w-[97%] bg-blue-900 text-white h-14 hover:bg-blue-800 transition-all duration-300"
             type="submit"
             onClick={handleSubmit}
+            icon={loading && <ClipLoader color="white" size={18} />}
           />
         </div>
         <div className="mt-10 mb-0 ml-2 text-[13px] font-medium ">
@@ -86,7 +95,7 @@ const SignIn = () => {
         <div className="flex flex-col">
           <Button
             name="Continue with Google"
-            className="h-14 hover:bg-red-500 hover:text-white  transition-all duration-300 font-medium text-[#ababab]"
+            className="h-14 bg-red-500 hover:bg-red-600 hover:text-white  transition-all duration-300 font-medium text-[#ababab]"
             icon={<FaGoogle />}
           />
         </div>

@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const URL: string = "https://hmo-be-btuo.onrender.com/api";
+const URL: string = "http://localhost:2233/api";
+// const URL: string = "https://hmo-be-btuo.onrender.com/api";
 export const readAllHopitalAPI = async () => {
   try {
     return await axios.get(`${URL}/view-all-hospital`).then((res) => {

@@ -12,14 +12,19 @@ const PrivateRouter: FC<PropsWithChildren> = ({ children }) => {
 
   useEffect(() => {
     homeGETAPI();
+
     const token: any = jwtDecode(user!);
     setUserData(token.id);
+
     userCookieAPI().then((res: any) => {
       setState(res.data);
     });
 
     setRead(userData === state);
   }, [userData, state]);
+
+  console.log(user);
+  console.log(read);
 
   return (
     <div>
