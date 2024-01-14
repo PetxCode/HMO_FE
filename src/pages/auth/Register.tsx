@@ -15,7 +15,7 @@ const Register = () => {
     e.preventDefault();
     setLoading(true);
     if (state !== "") {
-      registerAPI(state)
+      registerAPI({ email: state })
         .then(() => {
           setLoading(false);
         })

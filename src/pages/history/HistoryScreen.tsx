@@ -18,7 +18,7 @@ const HistoryScreen = () => {
 
       <div className="py-6 px-2 border rounded-md w-[100%] overflow-y-hidden ">
         {/* header */}
-        <div className="text-[gray] w-[950px] flex items-center gap-2 text-[12px] font-medium uppercase mb-10 px-4">
+        <div className="text-[gray] w-[1280px] flex items-center gap-2 text-[12px] font-medium uppercase mb-10 px-4">
           <div className="w-[130px] border-r">Date</div>
           <div className="w-[200px] border-r">Hospital Name</div>
           <div className="w-[300px] border-r">Contact Address</div>
@@ -26,12 +26,13 @@ const HistoryScreen = () => {
           <div className="w-[180px] border-r">Scheduled Date</div>
           <div className="w-[100px] border-r">Time</div>
           <div className="w-[100px] border-r">Received</div>
+          <div className="w-[300px] border-r">reason</div>
         </div>
         <div className=" w-full">
           {data?.appointments?.map((props: any, i: number) => (
             <div
               key={props}
-              className={`w-[950px] flex items-center gap-2 text-[12px] font-medium  h-14 px-4 ${
+              className={`w-[1280px] flex items-center gap-2 text-[12px] font-medium  h-16 px-4 my-2  ${
                 i % 2 === 0 ? "bg-slate-50" : "bg-white"
               }`}
             >
@@ -59,7 +60,10 @@ const HistoryScreen = () => {
                   {props.appointmentDate.split(",")[2]?.split(" ")[3]}
                 </span>
               </div>
-              <div className="w-[100px] border-r">Received</div>
+              <div className="w-[100px] border-r">Not yet Received</div>
+              <div className="w-[300px] border-r ">
+                {props?.reason.substring(0, 80)}...
+              </div>
             </div>
           ))}
         </div>

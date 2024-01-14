@@ -14,12 +14,9 @@ export const homeGETAPI = async () => {
 
 export const registerAPI = async (email: any) => {
   try {
-    return await axios
-      .post(`${URL}/register-user`, { email })
-      // .post(`http://localhost:2233/api/register-user`, { email })
-      .then((res) => {
-        return res;
-      });
+    return await axios.post(`${URL}/register-user`, email).then((res) => {
+      return res;
+    });
   } catch (error) {
     return error;
   }

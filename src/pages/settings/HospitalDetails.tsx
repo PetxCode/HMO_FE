@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { useHospital } from "../../hooks/useHospital";
 
 interface iProps {
@@ -8,9 +8,20 @@ interface iProps {
   stateName?: string;
 }
 
-const HospitalDetails: FC<iProps> = ({ stateName, state, choice }) => {
+const HospitalDetails: FC<iProps> = ({
+  setStateName,
+  stateName,
+  state,
+  choice,
+}) => {
   const { data } = useHospital(state!);
   stateName = data?.hospitalName;
+
+  useEffect(() => {
+    if (setStateName) {
+      setStateName(data?.hospitalName);
+    }
+  }, [stateName]);
 
   return (
     <div className="break-words text-[12px]">

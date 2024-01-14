@@ -42,14 +42,27 @@ const Sider = () => {
   return (
     <div className="w-full border-r bg-white text-blue-900 flex flex-col ">
       <div className="w-full flex justify-center">
-        <div className="mt-10 w-28 h-28 object-cover flex border rounded-full items-center justify-center ">
-          HMO
+        <div className="mt-5 w-20 h-20 object-cover flex border rounded-full items-center justify-center ">
+          Logo
         </div>
       </div>
 
-      <div className="mt-16 px-2 text-center flex flex-col border mx-2 rounded-md py-4">
+      {/* top box */}
+      <div className="mt-10 px-2 text-center flex flex-col border mx-2 rounded-md py-2">
+        <div className="mb-0 text-[14px] font-medium">
+          Your Annual subscription for you and your Family is:
+          <br />
+          <strong>
+            ₦{(2000 * (data?.members?.length + 1) * 12).toLocaleString()}
+          </strong>
+        </div>
+      </div>
+
+      {/* top box */}
+      <div className="mt-5 px-2 text-center flex flex-col border mx-2 rounded-md py-4">
         <div className="mb-4 text-[18px] font-medium">
-          You are currently on a {data?.plan}{" "}
+          You are currently on an{" "}
+          <span className="capitalize">{data?.plan}</span>{" "}
           {payment?.payments?.[0]?.subscriptionPlan}
         </div>
         <div className="flex w-full justify-center">
@@ -67,7 +80,7 @@ const Sider = () => {
               name="You can't Add Member Now"
               className="bg-red-600 text-white border-none font-medium  leading-tight"
               onClick={() => {
-                onHandleClick();
+                // onHandleClick();
               }}
             />
           )}
@@ -75,6 +88,8 @@ const Sider = () => {
           {/* </NavLink> */}
         </div>
       </div>
+
+      {/* Nav Links */}
       <div className="w-full flex justify-center">
         <div className="transition-all duration-300 text-center text-[12px] font-medium mt-3 w-[90%] ">
           {toggleText ? (
@@ -85,6 +100,7 @@ const Sider = () => {
         </div>
       </div>
 
+      {/* Settings */}
       <div className="mt-16 px-2 flex flex-col h-[90%]">
         <NavLink
           to="/"

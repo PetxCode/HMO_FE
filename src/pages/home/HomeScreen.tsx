@@ -1,5 +1,5 @@
 import { MdPeople, MdPlaylistAddCheck } from "react-icons/md";
-import { useUser, useUserID } from "../../hooks/useUserID";
+import { useUser, useUserID, useViewMember } from "../../hooks/useUserID";
 import Personal from "./Personal";
 import LittleHeader from "../../components/layout/LittleHeader";
 import { FaBuildingUser, FaCheckDouble } from "react-icons/fa6";
@@ -11,38 +11,36 @@ import { useState } from "react";
 import { usePaystackPayment } from "react-paystack";
 import { makePaymentAPI } from "../../api/paymentAPI";
 import Clipboard from "react-spinners/ClipLoader";
+import HomeAppointment from "./HomeAppointment";
 
 const HomeScreen = () => {
   document.title = "Family Record and Stats";
 
   const { user: userID }: any = useUserID();
   const { user: data }: any = useUser(userID);
+  const { myMember }: any = useViewMember(userID);
 
   const [state, setState] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
 
   const { data: payment } = useUserPayment(userID);
-  const viewMembership = Array.from({ length: 3 });
 
   const config = {
     reference: new Date().getTime().toString(),
     email: data?.email,
-    amount: 2000 * (data?.members?.length + 1) * 12 * 100, //Amount is in the country's lowest currency. E.g Kobo, so 20000 kobo = N200
+    amount: 2000 * (data?.members?.length + 1) * 12 * 100,
     publicKey: "pk_test_5a0581a5d3a5e4eff176456546f8e4b3f32d2d01",
   };
 
   const initializePayment: any = usePaystackPayment(config);
-  // makePaymentAPI(userID);
 
   const onSuccess = () => {
-    // Implementation for whatever you want to do with reference and after success call.
     makePaymentAPI(userID).then(() => {
       setLoading(false);
     });
     console.log("reference");
   };
 
-  // you can call this function anything
   const onClose = () => {
     // implementation for  whatever you want to do when the Paystack dialog closed.
     console.log("closed");
@@ -57,7 +55,7 @@ const HomeScreen = () => {
           <div className="mb-4 text-medium capitalize">Personal Info</div>
           <Personal props={userID} />
 
-          <div className="flex-1" />
+          <div className="flex-1 mt-10" />
           <div className="text-[13px] font-medium mt-4">
             <div className="flex items-center gap-4">
               <div className="border-r pr-4 ">
@@ -114,7 +112,7 @@ const HomeScreen = () => {
         </div>
 
         <div className="min-w-[300px] h-full flex flex-col rounded-md border p-4">
-          <div className="mb-4 text-[14px] font-normal capitalize">
+          <div className="mb-10 text-[14px] font-normal capitalize">
             Family Number Count, including you
           </div>
 
@@ -171,17 +169,17 @@ const HomeScreen = () => {
             <p className="mb-3 text-[14px] font-medium">View Family Member</p>
 
             <div className="grid grid-cols-12  ">
-              {viewMembership?.map((props: any, i: number) => (
+              {myMember?.map((props: any, i: number) => (
                 <div
                   key={props + i}
                   className="flex flex-col items-center group transition-all duration-300  cursor-pointer"
                 >
                   <img
-                    src={pix}
+                    src={props.avatar ? props.avatar : pix}
                     className="object-cover rounded-full min-w-14 h-14 border-2 border-white"
                   />
                   <p className="text-[12px] opacity-0 font-medium group-hover:opacity-100 transition-all duration-300">
-                    name
+                    {props.firstName}
                   </p>
                 </div>
               ))}
@@ -194,19 +192,13 @@ const HomeScreen = () => {
 
           <div className=" rounded-md w-full  p-4">
             <div className="mb-4 text-medium capitalize">
-              Personal Appointment Details
+              Top 5 recent Personal Appointment Details
             </div>
 
             <div>
-              {data?.appointment?.length > 0 ? (
+              {data?.appointments?.length > 0 ? (
                 <div>
-                  {data?.appointment?.map((el: any) => {
-                    <div key={el?._id}>
-                      <div>
-                        <span>{el}</span>
-                      </div>
-                    </div>;
-                  })}
+                  <HomeAppointment />
                 </div>
               ) : (
                 <div className="flex flex-col w-full items-center">
@@ -220,6 +212,7 @@ const HomeScreen = () => {
           </div>
         </div>
       </div>
+
       <div className="flex-1" />
       <div className=" border bg-slate-50 mt-10 p-2 ">
         {data?.familyHospital?.length > 0 ? (

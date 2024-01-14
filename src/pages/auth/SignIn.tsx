@@ -24,6 +24,7 @@ const SignIn = () => {
       .then((res) => {
         dispatch(loginState(res.data));
         setLoading(false);
+        console.log(res);
       })
       .then(() => {
         navigate("/");

@@ -4,9 +4,9 @@ import {
   changeToggleMenuToFalse,
   logoutState,
 } from "../../global/reduxState";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { MdLogout } from "react-icons/md";
-import { FC, ReactNode, useEffect, useState } from "react";
+import { FC, ReactNode, useState } from "react";
 import { NavLink } from "react-router-dom";
 import Button from "../reUse/Button";
 import { useUserID } from "../../hooks/useUserID";
@@ -28,8 +28,6 @@ interface iProps {
 const SmallPiece: FC<iProps> = ({ log, name, but }) => {
   const { user: userID } = useUserID();
   const dispatch = useDispatch();
-
-  const toggle = useSelector((state: any) => state.toggle);
 
   const handleToggleMenuFalse = () => {
     if (!document.startViewTransition) {
